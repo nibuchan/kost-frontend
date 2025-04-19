@@ -6,7 +6,7 @@ const useKos = () => {
     const [error, setError] = useState(null);
 
     useEffect(() => {
-        fetch("kost-backend-production.up.railway.app/api/kos")
+        fetch("https://kost-backend-production.up.railway.app/api/kos")
             .then((res) => {
                 if (!res.ok) throw new Error("Gagal mengambil data kos");
                 return res.json();
