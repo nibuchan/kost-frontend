@@ -17,7 +17,9 @@ const Navbar = () => {
         }
 
         const results = dataKos.filter((kos) =>
-            kos.name.toLowerCase().includes(value.toLowerCase())
+            kos.name.toLowerCase().includes(value.toLowerCase()) ||
+            kos.address.toLowerCase().includes(value.toLowerCase()) ||
+            kos.city.toLowerCase().includes(value.toLowerCase())
         );
         setFilteredKos(results);
     };
