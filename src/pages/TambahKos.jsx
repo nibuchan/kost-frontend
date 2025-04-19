@@ -42,7 +42,7 @@ const TambahKos = () => {
         };
 
         try {
-            const res = await fetch("http://localhost:3000/api/kos", {
+            const res = await fetch("https://kost-backend-production.up.railway.app/api/kos", {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify(payload)
