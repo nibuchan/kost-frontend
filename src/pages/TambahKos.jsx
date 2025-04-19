@@ -25,12 +25,7 @@ const TambahKos = () => {
     };
 
     const handleImage = (e) => {
-        const file = e.target.files[0];
-        const reader = new FileReader();
-        reader.onloadend = () => {
-            setForm((prev) => ({ ...prev, image_url: reader.result }));
-        };
-        if (file) reader.readAsDataURL(file);
+        setImage(e.target.files[0]);
     };
 
     const handleSubmit = async (e) => {
@@ -41,34 +36,23 @@ const TambahKos = () => {
             user_id: 1
         };
 
-        try {
-            const res = await fetch("https://kost-backend-production.up.railway.app/api/kos", {
-                method: "POST",
-                headers: { "Content-Type": "application/json" },
-                body: JSON.stringify(payload)
-            });
+        const formData = new FormData();
+        formData.append("name", name);
+        formData.append("city", city);
+        formData.append("price", price);
+        formData.append("gender", gender);
+        formData.append("address", address);
+        formData.append("description", description);
+        formData.append("image", image);
 
-            if (!res.ok) throw new Error("Gagal menambahkan kos");
+        const res = await fetch("https://kost-backend-production.up.railway.app/api/kos", {
+            method: "POST",
+            body: formData
+        });
 
-            alert("Kos berhasil ditambahkan");
-            setForm({
-                name: "",
-                description: "",
-                address: "",
-                city: "",
-                price: "",
-                gender: "campur",
-                has_wifi: false,
-                has_ac: false,
-                has_private_bathroom: false,
-                latitude: "",
-                longitude: "",
-                image_url: "",
-            });
-        } catch (err) {
-            console.error(err);
-            alert("Terjadi kesalahan");
-        }
+        
+        const data = await res.json();
+        console.log(data);
     };
 
     return (
